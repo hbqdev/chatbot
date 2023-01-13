@@ -1,6 +1,6 @@
 # Chatbot using Flask with OpenAI API
 
-This is a simple chatbot that uses openAI API](https://beta.openai.com/docs/introduction/overview) and the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework.
+This is a simple chatbot that uses [openAI API](https://beta.openai.com/docs/introduction/overview) and the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework.
 
 ## Setup
 
