@@ -11,20 +11,19 @@ def chat():
 
 @app.route("/response", methods=["POST"])
 def response():
-    prompt = request.form["prompt"]
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=2048,
-        n=1,
-        stop=None,
-        temperature=0.5,
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": request.form["prompt"]},
+    ]
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
     )
-    result = response.choices[0].text
+
+    result = response["choices"][0]["message"]["content"]
+    #result = response.choices[0].get("text")
     result = result.replace("\n", "<br>")
     return result
 
-
 if __name__ == "__main__":
     app.run(debug=True)
-

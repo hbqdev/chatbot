@@ -5,13 +5,15 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <div class="chatbox">
-        <form id="chat-form" action="{{ url_for('response') }}" method="POST">
-            <input type="text" id="prompt" name="prompt" placeholder="Type your message here...">
-            <input type="submit" value="Send" class="send-button">
-        </form>
-        <div class="history">
-          
+    <div class="chatbox-container">
+        <div class="chatbox">
+            <form id="chat-form" action="{{ url_for('response') }}" method="POST">
+                <input type="text" id="prompt" name="prompt" placeholder="Type your message here...">
+                <input type="submit" value="Send" class="send-button">
+            </form>
+            <div class="history">
+              
+            </div>
         </div>
     </div>
     <script>
@@ -31,9 +33,13 @@
                     var response = document.createElement("div");
                     response.classList.add("message-box");
                     response.classList.add("bot");
+                    var messages = request.responseText.split('<br>');
+                    for (var i = 0; i < messages.length; i++) {
                     var p = document.createElement("p");
-                    p.innerHTML = request.responseText;
+                    p.innerHTML = messages[i];
                     response.appendChild(p);
+                    }
+
                     var history = document.querySelector(".history");
                     history.appendChild(user_input);
                     history.appendChild(response);
@@ -44,7 +50,15 @@
             document.getElementById("prompt").value = "";
             return false;
         }
+
+        // Set the height of the chatbox to 80% of the viewport height
+        var chatbox = document.querySelector(".chatbox");
+        chatbox.style.height = window.innerHeight * 0.8 + "px";
+
+        // Set the width of the chatbox to 80% of the viewport width
+        var chatboxContainer = document.querySelector(".chatbox-container");
+        chatboxContainer.style.width = "80%";
+        chatboxContainer.style.margin = "0 auto";
     </script>
 </body>
-
 </html>
